@@ -5,6 +5,8 @@ namespace BackendProyectoTienda.DAO
 {
     public class DaoEmpresa : IDaoEmpresas
     {
+        public DaoEmpresa() { }
+
         public List<Empresa> Empresas()
         {
             using (TPVContext context = new TPVContext())

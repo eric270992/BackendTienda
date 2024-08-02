@@ -12,7 +12,7 @@ namespace BackendProyectoTienda.Controllers
     public class EmpresaController : ControllerBase
     {
         RepositoryEmpresa _repoEmpresa;
-        EmpresaController(RepositoryEmpresa repoEmpresa) 
+        public EmpresaController(RepositoryEmpresa repoEmpresa) 
         {
             _repoEmpresa = repoEmpresa;
         }

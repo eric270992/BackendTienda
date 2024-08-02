@@ -1,6 +1,8 @@
 
 using BackendProyectoTienda.DAO;
 using BackendProyectoTienda.DAO.Interface;
+using BackendProyectoTienda.Services;
+using BackendProyectoTienda.Services.Repository;
 
 namespace BackendProyectoTienda
 {
@@ -18,7 +20,11 @@ namespace BackendProyectoTienda
             builder.Services.AddSwaggerGen();
 
             //Injecció dependencies
-            builder.Services.AddScoped<IDaoEmpresas, DaoEmpresa>();
+                //DAO
+                builder.Services.AddScoped<IDaoEmpresas, DaoEmpresa>();
+
+            //Services
+            builder.Services.AddScoped<RepositoryEmpresa, ServiceEmpresa>();
 
             var app = builder.Build();
 
