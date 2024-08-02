@@ -1,4 +1,7 @@
 
+using BackendProyectoTienda.DAO;
+using BackendProyectoTienda.DAO.Interface;
+
 namespace BackendProyectoTienda
 {
     public class Program
@@ -14,7 +17,11 @@ namespace BackendProyectoTienda
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+            //Injecció dependencies
+            builder.Services.AddScoped<IDaoEmpresas, DaoEmpresa>();
+
             var app = builder.Build();
+
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
