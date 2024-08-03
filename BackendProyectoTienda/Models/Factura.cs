@@ -7,7 +7,11 @@ namespace BackendProyectoTienda.Models;
 
 public partial class Factura
 {
-    public int Id { get; set; }
+    public int Ejercicio { get; set; }
+
+    public string Serie { get; set; }
+
+    public int NumeroPedido { get; set; }
 
     public int? ClienteId { get; set; }
 
@@ -16,6 +20,8 @@ public partial class Factura
     public DateOnly Fecha { get; set; }
 
     public decimal Total { get; set; }
+
+    public Guid? Uuid { get; set; }
 
     public virtual Cliente Cliente { get; set; }
 

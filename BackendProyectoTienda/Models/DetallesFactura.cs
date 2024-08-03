@@ -7,15 +7,23 @@ namespace BackendProyectoTienda.Models;
 
 public partial class DetallesFactura
 {
-    public int FacturaId { get; set; }
+    public int Ejercicio { get; set; }
 
-    public int ArticuloId { get; set; }
+    public string Serie { get; set; }
+
+    public int NumeroPedido { get; set; }
+
+    public int Orden { get; set; }
+
+    public int? ArticuloId { get; set; }
 
     public int Cantidad { get; set; }
 
     public decimal PrecioUnitario { get; set; }
 
     public decimal Iva { get; set; }
+
+    public Guid? Uuid { get; set; }
 
     public virtual Articulo Articulo { get; set; }
 

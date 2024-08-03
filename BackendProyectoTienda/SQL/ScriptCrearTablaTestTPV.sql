@@ -7,7 +7,6 @@ CREATE TABLE Empresas (
     nif VARCHAR(20) NOT NULL
 );
 
--- Datos de prueba
 INSERT INTO Empresas (nombre, direccion, telefono, email, nif) VALUES
 ('Empresa 1', 'Calle Falsa 123', '123456789', 'contacto@empresa1.com', 'A12345678'),
 ('Empresa 2', 'Avenida Siempre Viva 742', '987654321', 'info@empresa2.com', 'B87654321');
@@ -21,7 +20,6 @@ CREATE TABLE Clientes (
     dni VARCHAR(20) NOT NULL
 );
 
--- Datos de prueba
 INSERT INTO Clientes (nombre, direccion, telefono, email, dni) VALUES
 ('Juan Perez', 'Calle Falsa 456', '321654987', 'juan.perez@mail.com', '12345678X'),
 ('Maria Gomez', 'Avenida Siempre Viva 123', '654987321', 'maria.gomez@mail.com', '87654321Y');
@@ -31,7 +29,6 @@ CREATE TABLE Familias (
     nombre VARCHAR(100) NOT NULL
 );
 
--- Datos de prueba
 INSERT INTO Familias (nombre) VALUES
 ('Electrónica'),
 ('Ropa'),
@@ -44,7 +41,6 @@ CREATE TABLE Subfamilias (
     FOREIGN KEY (familia_id) REFERENCES Familias(id)
 );
 
--- Datos de prueba
 INSERT INTO Subfamilias (nombre, familia_id) VALUES
 ('Móviles', 1),
 ('Televisores', 1),
@@ -64,7 +60,6 @@ CREATE TABLE Articulos (
     FOREIGN KEY (subfamilia_id) REFERENCES Subfamilias(id)
 );
 
--- Datos de prueba
 INSERT INTO Articulos (nombre, descripcion, precio, stock, iva, subfamilia_id) VALUES
 ('iPhone 12', 'Teléfono móvil Apple', 799.99, 50, 21.00, 1),
 ('Samsung Galaxy S21', 'Teléfono móvil Samsung', 699.99, 30, 21.00, 1),
@@ -75,33 +70,39 @@ INSERT INTO Articulos (nombre, descripcion, precio, stock, iva, subfamilia_id) V
 ('Coca-Cola', 'Bebida refrescante', 0.99, 500, 10.00, 6);
 
 CREATE TABLE Facturas (
-    id INT PRIMARY KEY IDENTITY(1,1),
+    ejercicio INT NOT NULL,
+    serie VARCHAR(10) NOT NULL,
+    numeroPedido INT NOT NULL,
     cliente_id INT,
     empresa_id INT,
     fecha DATE NOT NULL,
     total DECIMAL(10, 2) NOT NULL,
+    uuid UNIQUEIDENTIFIER DEFAULT NEWID(),
+    PRIMARY KEY (ejercicio, serie, numeroPedido),
     FOREIGN KEY (cliente_id) REFERENCES Clientes(id),
     FOREIGN KEY (empresa_id) REFERENCES Empresas(id)
 );
 
--- Datos de prueba
-INSERT INTO Facturas (cliente_id, empresa_id, fecha, total) VALUES
-(1, 1, '2024-01-15', 1200.50),
-(2, 2, '2024-01-20', 450.75);
+INSERT INTO Facturas (ejercicio, serie, numeroPedido, cliente_id, empresa_id, fecha, total) VALUES
+(2024, 'A', 1001, 1, 1, '2024-01-15', 1200.50),
+(2024, 'B', 1002, 2, 2, '2024-01-20', 450.75);
 
 CREATE TABLE DetallesFactura (
-    factura_id INT,
+    ejercicio INT NOT NULL,
+    serie VARCHAR(10) NOT NULL,
+    numeroPedido INT NOT NULL,
+    orden INT NOT NULL,
     articulo_id INT,
     cantidad INT NOT NULL,
     precio_unitario DECIMAL(10, 2) NOT NULL,
     iva DECIMAL(4, 2) NOT NULL,
-    PRIMARY KEY (factura_id, articulo_id),
-    FOREIGN KEY (factura_id) REFERENCES Facturas(id),
-    FOREIGN KEY (articulo_id) REFERENCES Articulos(id)
+    uuid UNIQUEIDENTIFIER DEFAULT NEWID(),
+    PRIMARY KEY (ejercicio, serie, numeroPedido, orden),
+    FOREIGN KEY (articulo_id) REFERENCES Articulos(id),
+    FOREIGN KEY (ejercicio, serie, numeroPedido) REFERENCES Facturas(ejercicio, serie, numeroPedido)
 );
 
--- Datos de prueba
-INSERT INTO DetallesFactura (factura_id, articulo_id, cantidad, precio_unitario, iva) VALUES
-(1, 1, 2, 799.99, 21.00),
-(1, 4, 5, 29.99, 21.00),
-(2, 6, 10, 0.99, 10.00);
+INSERT INTO DetallesFactura (ejercicio, serie, numeroPedido, orden, articulo_id, cantidad, precio_unitario, iva) VALUES
+(2024, 'A', 1001, 1, 1, 2, 799.99, 21.00),
+(2024, 'A', 1001, 2, 4, 5, 29.99, 21.00),
+(2024, 'B', 1002, 1, 6, 10, 0.99, 10.00);
