@@ -28,5 +28,29 @@ namespace BackendProyectoTienda.Utils
 
             return llistaDTO;
         }
+
+        public static Empresa ConvertirDtoEmpresaToEmpresa(DTOEmpresa dtoEmpresa)
+        {
+            Empresa empresa = new Empresa();
+            empresa.Id = dtoEmpresa.Id;
+            empresa.Nombre = dtoEmpresa.Nombre;
+            empresa.Direccion = dtoEmpresa.Direccion;
+            empresa.Telefono = dtoEmpresa.Telefono;
+            empresa.Email = dtoEmpresa.Email;
+            empresa.Nif = dtoEmpresa.Nif;
+
+            return empresa;
+        }
+
+        public static List<Empresa> ConvertiListDtoEmpresaToListEmpresa(List<DTOEmpresa> listDtoEmpresa)
+        {
+            List<Empresa> llistaEmpresa = new List<Empresa>();
+            foreach (DTOEmpresa item in listDtoEmpresa)
+            {
+                llistaEmpresa.Add(ConvertirDtoEmpresaToEmpresa(item));
+            }
+
+            return llistaEmpresa;
+        }
     }
 }

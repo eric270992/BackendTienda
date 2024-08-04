@@ -22,9 +22,10 @@ namespace BackendProyectoTienda
             //Injecció dependencies
                 //DAO
                 builder.Services.AddScoped<IDaoEmpresas, DaoEmpresa>();
+                builder.Services.AddScoped<IDaoArticulos,DaoArticulo>();
 
-            //Services
-            builder.Services.AddScoped<RepositoryEmpresa, ServiceEmpresa>();
+                //Services
+                builder.Services.AddScoped<RepositoryEmpresa, ServiceEmpresa>();
 
             var app = builder.Build();
 

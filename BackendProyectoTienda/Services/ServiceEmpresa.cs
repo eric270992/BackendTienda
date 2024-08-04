@@ -22,5 +22,28 @@ namespace BackendProyectoTienda.Services
         {
             return UtilsEmpresa.ConvertirEmpresaToDtoEmpresa(_daoEmpresa.GetEmpresaById(id));
         }
+
+        public Wrapper PostEmpresa(DTOEmpresa dtoEmpresa)
+        {
+            Wrapper wrapper = new Wrapper();
+            wrapper.Status = "500";
+            wrapper.Message = "Empresa afegida correctament";
+            wrapper.Data = null;
+
+            _daoEmpresa.PostEmpresa(UtilsEmpresa.ConvertirDtoEmpresaToEmpresa(dtoEmpresa));
+
+            return wrapper;
+        }
+
+        public Wrapper PutEmpresa(DTOEmpresa dtoEmpresa)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        public Wrapper DeleteEmpresa(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
