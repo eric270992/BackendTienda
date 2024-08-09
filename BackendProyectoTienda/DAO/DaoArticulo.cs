@@ -42,6 +42,7 @@ namespace BackendProyectoTienda.DAO
                 try
                 {
                     context.Articulos.Add(articulo);
+                    context.SaveChanges();
                 }
                 catch (Exception ex)
                 {
@@ -69,6 +70,7 @@ namespace BackendProyectoTienda.DAO
                         articuloToUpdate.Iva = articulo.Iva;
 
                         context.Articulos.Update(articuloToUpdate);
+                        context.SaveChanges();
                     }
                     else
                     {
@@ -94,6 +96,7 @@ namespace BackendProyectoTienda.DAO
                 try
                 {
                     context.Articulos.Remove(context.Articulos.Where(it => it.Id == id).FirstOrDefault());
+                    context.SaveChanges();
                 }
                 catch (Exception ex)
                 {
@@ -113,6 +116,7 @@ namespace BackendProyectoTienda.DAO
                 try
                 {
                     context.Articulos.Remove(context.Articulos.Where(it => it.Codigo == codigo).FirstOrDefault());
+                    context.SaveChanges();
                 }
                 catch (Exception ex)
                 {

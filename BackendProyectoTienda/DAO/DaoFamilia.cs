@@ -37,6 +37,7 @@ namespace BackendProyectoTienda.DAO
                 try
                 {
                     context.Add(familia);
+                    context.SaveChanges();
                     isOk = true;
                 }
                 catch (Exception ex)
@@ -56,6 +57,7 @@ namespace BackendProyectoTienda.DAO
                 try
                 {
                     context.Update(familia);
+                    context.SaveChanges();
                     isOk = true;
                 }
                 catch (Exception ex)
@@ -78,6 +80,7 @@ namespace BackendProyectoTienda.DAO
                     if (fam != null)
                     {
                         context.Familias.Remove(fam);
+                        context.SaveChanges();
                         isOk = true;
                     }
                 }
