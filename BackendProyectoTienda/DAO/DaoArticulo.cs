@@ -33,7 +33,7 @@ namespace BackendProyectoTienda.DAO
             }
         }
 
-        public bool PostArticlo(Articulo articulo)
+        public bool PostArticulo(Articulo articulo)
         {
             bool isOk = true;
 

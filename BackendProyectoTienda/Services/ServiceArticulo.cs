@@ -1,6 +1,8 @@
-﻿using BackendProyectoTienda.DAO.Interface;
+﻿using BackendProyectoTienda.DAO;
+using BackendProyectoTienda.DAO.Interface;
 using BackendProyectoTienda.DTO;
 using BackendProyectoTienda.Services.Repository;
+using BackendProyectoTienda.Utils;
 
 namespace BackendProyectoTienda.Services
 {
@@ -11,29 +13,31 @@ namespace BackendProyectoTienda.Services
         {
             _daoArticulo = daoArticulo;
         }
-        public bool DeleteArticuloByCodigo(string codigo)
-        {
-            throw new NotImplementedException();
-        }
+
 
         public List<DTOArticulo> GetAll()
         {
-            throw new NotImplementedException();
+            return UtilsArticulo.ConvertirListArticuloToDTO(_daoArticulo.GetArticulos());
         }
 
-        public List<DTOArticulo> GetArticuloByCodigo(string codigo)
+        public DTOArticulo GetArticuloByCodigo(string codigo)
         {
-            throw new NotImplementedException();
+            return UtilsArticulo.ConvertirArticuloToDTO(_daoArticulo.GetArticuloByCodigo(codigo));
         }
 
-        public bool PostArticulo(DTOArticulo dTOArticulo)
+        public bool PostArticulo(DTOArticulo dtoArticulo)
         {
-            throw new NotImplementedException();
+            return _daoArticulo.PostArticulo(UtilsArticulo.ConvertirDTOToArticulo(dtoArticulo));
         }
 
         public bool PutArticulo(DTOArticulo dtoArticulo)
         {
-            throw new NotImplementedException();
+            return _daoArticulo.PutArticlo(UtilsArticulo.ConvertirDTOToArticulo(dtoArticulo));
+        }
+
+        public bool DeleteArticuloByCodigo(string codigo)
+        {
+            return _daoArticulo.DeleteArticuloByCodigo(codigo);
         }
     }
 }
