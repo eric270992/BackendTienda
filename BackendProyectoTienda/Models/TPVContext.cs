@@ -39,9 +39,16 @@ public partial class TPVContext : DbContext
     {
         modelBuilder.Entity<Articulo>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Articulo__3213E83F8AD98F1F");
+            entity.HasKey(e => e.Id).HasName("PK__Articulo__3213E83F5FCB500A");
+
+            entity.HasIndex(e => e.Codigo, "UQ__Articulo__40F9A20691820368").IsUnique();
 
             entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.Codigo)
+                .IsRequired()
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("codigo");
             entity.Property(e => e.Descripcion)
                 .HasMaxLength(255)
                 .IsUnicode(false)
@@ -62,12 +69,12 @@ public partial class TPVContext : DbContext
 
             entity.HasOne(d => d.Subfamilia).WithMany(p => p.Articulos)
                 .HasForeignKey(d => d.SubfamiliaId)
-                .HasConstraintName("FK__Articulos__subfa__44FF419A");
+                .HasConstraintName("FK__Articulos__subfa__2E1BDC42");
         });
 
         modelBuilder.Entity<Cliente>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Clientes__3213E83FA4DF5B44");
+            entity.HasKey(e => e.Id).HasName("PK__Clientes__3213E83F2D6A49FA");
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Direccion)
@@ -96,7 +103,7 @@ public partial class TPVContext : DbContext
 
         modelBuilder.Entity<DetallesFactura>(entity =>
         {
-            entity.HasKey(e => new { e.Ejercicio, e.Serie, e.NumeroPedido, e.Orden }).HasName("PK__Detalles__3FA3D57D5B8B9A6E");
+            entity.HasKey(e => new { e.Ejercicio, e.Serie, e.NumeroPedido, e.Orden }).HasName("PK__Detalles__3FA3D57D123FE284");
 
             entity.ToTable("DetallesFactura");
 
@@ -121,17 +128,17 @@ public partial class TPVContext : DbContext
 
             entity.HasOne(d => d.Articulo).WithMany(p => p.DetallesFacturas)
                 .HasForeignKey(d => d.ArticuloId)
-                .HasConstraintName("FK__DetallesF__artic__4D94879B");
+                .HasConstraintName("FK__DetallesF__artic__36B12243");
 
             entity.HasOne(d => d.Factura).WithMany(p => p.DetallesFacturas)
                 .HasForeignKey(d => new { d.Ejercicio, d.Serie, d.NumeroPedido })
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__DetallesFactura__4E88ABD4");
+                .HasConstraintName("FK__DetallesFactura__37A5467C");
         });
 
         modelBuilder.Entity<Empresa>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Empresas__3213E83F768B2FB8");
+            entity.HasKey(e => e.Id).HasName("PK__Empresas__3213E83F8482BA8F");
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Direccion)
@@ -160,7 +167,7 @@ public partial class TPVContext : DbContext
 
         modelBuilder.Entity<Factura>(entity =>
         {
-            entity.HasKey(e => new { e.Ejercicio, e.Serie, e.NumeroPedido }).HasName("PK__Facturas__EC81C0F32A9B306D");
+            entity.HasKey(e => new { e.Ejercicio, e.Serie, e.NumeroPedido }).HasName("PK__Facturas__EC81C0F3C9A5FE55");
 
             entity.Property(e => e.Ejercicio).HasColumnName("ejercicio");
             entity.Property(e => e.Serie)
@@ -180,16 +187,16 @@ public partial class TPVContext : DbContext
 
             entity.HasOne(d => d.Cliente).WithMany(p => p.Facturas)
                 .HasForeignKey(d => d.ClienteId)
-                .HasConstraintName("FK__Facturas__client__48CFD27E");
+                .HasConstraintName("FK__Facturas__client__31EC6D26");
 
             entity.HasOne(d => d.Empresa).WithMany(p => p.Facturas)
                 .HasForeignKey(d => d.EmpresaId)
-                .HasConstraintName("FK__Facturas__empres__49C3F6B7");
+                .HasConstraintName("FK__Facturas__empres__32E0915F");
         });
 
         modelBuilder.Entity<Familia>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Familias__3213E83FF60A9CE0");
+            entity.HasKey(e => e.Id).HasName("PK__Familias__3213E83FDB91D18C");
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Nombre)
@@ -201,7 +208,7 @@ public partial class TPVContext : DbContext
 
         modelBuilder.Entity<Subfamilia>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Subfamil__3213E83F3FFEF7AE");
+            entity.HasKey(e => e.Id).HasName("PK__Subfamil__3213E83FACEE030F");
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.FamiliaId).HasColumnName("familia_id");
@@ -213,7 +220,7 @@ public partial class TPVContext : DbContext
 
             entity.HasOne(d => d.Familia).WithMany(p => p.Subfamilia)
                 .HasForeignKey(d => d.FamiliaId)
-                .HasConstraintName("FK__Subfamili__famil__4222D4EF");
+                .HasConstraintName("FK__Subfamili__famil__2A4B4B5E");
         });
 
         OnModelCreatingPartial(modelBuilder);
