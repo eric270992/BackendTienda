@@ -16,6 +16,8 @@
 
         public decimal Iva { get; set; }
 
+        public int FamiliaId { get; set; }
+
         public int? SubfamiliaId { get; set; }
     }
 }

@@ -63,14 +63,14 @@ CREATE TABLE Articulos (
     FOREIGN KEY (subfamilia_id) REFERENCES Subfamilias(id)  -- Clave foránea a Subfamilias, opcional
 );
 
-INSERT INTO Articulos (codigo,nombre, descripcion, precio, stock, iva, subfamilia_id) VALUES
-('000IP12','iPhone 12', 'Teléfono móvil Apple', 799.99, 50, 21.00, 1),
-('000SS21','Samsung Galaxy S21', 'Teléfono móvil Samsung', 699.99, 30, 21.00, 1),
-('000LG55','TV LG 55"', 'Televisor 4K LG', 499.99, 20, 21.00, 2),
-('000CAAD','Camiseta Adidas', 'Camiseta deportiva', 29.99, 100, 21.00, 3),
-('000PALE','Pantalón Levis', 'Pantalón vaquero', 59.99, 60, 21.00, 4),
-('000FRMA','Manzana', 'Fruta fresca', 1.99, 200, 10.00, 5),
-('000RECO','Coca-Cola', 'Bebida refrescante', 0.99, 500, 10.00, 6);
+INSERT INTO Articulos (codigo,nombre, descripcion, precio, stock, iva, familia_id, subfamilia_id) VALUES
+('000IP12','iPhone 12', 'Teléfono móvil Apple', 799.99, 50, 21.00, 1, 1),
+('000SS21','Samsung Galaxy S21', 'Teléfono móvil Samsung', 699.99, 30, 21.00, 1, 1),
+('000LG55','TV LG 55"', 'Televisor 4K LG', 499.99, 20, 21.00,1, 2),
+('000CAAD','Camiseta Adidas', 'Camiseta deportiva', 29.99, 100, 21.00,2, 3),
+('000PALE','Pantalón Levis', 'Pantalón vaquero', 59.99, 60, 21.00,2, 4),
+('000FRMA','Manzana', 'Fruta fresca', 1.99, 200, 10.00,3, 5),
+('000RECO','Coca-Cola', 'Bebida refrescante', 0.99, 500, 10.00,3, 6);
 
 CREATE TABLE Facturas (
     ejercicio INT NOT NULL,

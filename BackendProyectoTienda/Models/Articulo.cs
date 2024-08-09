@@ -21,9 +21,13 @@ public partial class Articulo
 
     public decimal Iva { get; set; }
 
+    public int FamiliaId { get; set; }
+
     public int? SubfamiliaId { get; set; }
 
     public virtual ICollection<DetallesFactura> DetallesFacturas { get; set; } = new List<DetallesFactura>();
+
+    public virtual Familia Familia { get; set; }
 
     public virtual Subfamilia Subfamilia { get; set; }
 }

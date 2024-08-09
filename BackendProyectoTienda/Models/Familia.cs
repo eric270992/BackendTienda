@@ -11,5 +11,7 @@ public partial class Familia
 
     public string Nombre { get; set; }
 
+    public virtual ICollection<Articulo> Articulos { get; set; } = new List<Articulo>();
+
     public virtual ICollection<Subfamilia> Subfamilia { get; set; } = new List<Subfamilia>();
 }
