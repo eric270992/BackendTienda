@@ -51,14 +51,16 @@ INSERT INTO Subfamilias (nombre, familia_id) VALUES
 
 CREATE TABLE Articulos (
     id INT PRIMARY KEY IDENTITY(1,1),
-    codigo varchar(50) NOT NULL unique,
+    codigo VARCHAR(50) NOT NULL UNIQUE,
     nombre VARCHAR(100) NOT NULL,
     descripcion VARCHAR(255),
     precio DECIMAL(10, 2) NOT NULL,
     stock INT NOT NULL,
     iva DECIMAL(4, 2) NOT NULL,
+    familia_id INT NOT NULL,                     -- Nueva columna para la clave foránea a Familias
     subfamilia_id INT,
-    FOREIGN KEY (subfamilia_id) REFERENCES Subfamilias(id)
+    FOREIGN KEY (familia_id) REFERENCES Familias(id),   -- Clave foránea a Familias, no nula
+    FOREIGN KEY (subfamilia_id) REFERENCES Subfamilias(id)  -- Clave foránea a Subfamilias, opcional
 );
 
 INSERT INTO Articulos (nombre, descripcion, precio, stock, iva, subfamilia_id) VALUES
