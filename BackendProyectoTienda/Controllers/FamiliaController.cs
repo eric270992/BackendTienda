@@ -2,6 +2,7 @@
 using BackendProyectoTienda.Services.Repository;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 
 namespace BackendProyectoTienda.Controllers
 {
@@ -17,54 +18,129 @@ namespace BackendProyectoTienda.Controllers
         }
 
         [HttpGet]
-        public List<DTOFamilia> GetAll()
+        public Wrapper GetAll()
         {
-            return _repoFamilia.GetAll();
+            Wrapper wrapper = new Wrapper();
+            try
+            {
+                wrapper.Message = "Dades recuperades correctament";
+                wrapper.Status = "200";
+                wrapper.Data = new Dictionary<string, object>
+                {
+                    {"Dades",_repoFamilia.GetAll()}
+                };
+            }
+            catch(Exception err)
+            {
+                wrapper.Message = "Error recuperant dades";
+                wrapper.Status = "500";
+            }
+            return wrapper;
         }
 
         [HttpGet("nombre/{nombre}")]
-        public List<DTOFamilia> GetAllByLikeNombre(string nombre)
+        public Wrapper GetAllByLikeNombre(string nombre)
         {
-            return _repoFamilia.GetAllByName(nombre);
+            Wrapper wrapper = new Wrapper();
+            try
+            {
+                wrapper.Message = "Dades recuperades correctament";
+                wrapper.Status = "200";
+                wrapper.Data = new Dictionary<string, object>
+                {
+                    {"Dades",_repoFamilia.GetAllByName(nombre)}
+                };
+            }
+            catch (Exception err)
+            {
+                wrapper.Message = "Error recuperant dades";
+                wrapper.Status = "500";
+            }
+            return wrapper;
         }
 
         [HttpGet("id/{id}")]
-        public DTOFamilia GetById(int id)
+        public Wrapper GetById(int id)
         {
-            return _repoFamilia.GetById(id);
+            Wrapper wrapper = new Wrapper();
+            try
+            {
+                wrapper.Message = "Dades recuperades correctament";
+                wrapper.Status = "200";
+                wrapper.Data = new Dictionary<string, object>
+                {
+                    {"Dades",_repoFamilia.GetById(id)}
+                };
+            }
+            catch (Exception err)
+            {
+                wrapper.Message = "Error recuperant dades";
+                wrapper.Status = "500";
+            }
+            return wrapper;
         }
 
         [HttpPost]
-        public string Post([FromBody] DTOFamilia dTOFamilia)
+        public Wrapper Post([FromBody] DTOFamilia dTOFamilia)
         {
-            string message = "ERROR GUARDANT FAMILIA AL CONTROLLER";
-            if (_repoFamilia.PostFamilia(dTOFamilia))
+            Wrapper wrapper = new Wrapper();
+            try
             {
-                message = "EXIT EN GUARDAR FAMILIA";
+                if (_repoFamilia.PostFamilia(dTOFamilia))
+                {
+                    wrapper.Message = "EXIT EN GUARDAR FAMILIA";
+                    wrapper.Status = "200";
+                }
             }
-            return message;
+            catch (Exception err)
+            {
+                wrapper.Message = "ERROR GUARDANT FAMILIA AL CONTROLLER";
+                wrapper.Status = "500";
+            }
+
+            return wrapper;
         }
 
         [HttpPut]
-        public string Put([FromBody] DTOFamilia dto)
+        public Wrapper Put([FromBody] DTOFamilia dto)
         {
-            string message = "ERROR ACTUALITZANT FAMILIA AL CONTROLLER";
-            if (_repoFamilia.PutFamilia(dto))
+            Wrapper wrapper = new Wrapper();
+            try
             {
-                message = "EXIT EN ACTUALITZAR FAMILIA";
+                if (_repoFamilia.PutFamilia(dto))
+                {
+                    wrapper.Message = "EXIT EN ACTUALITZAR FAMILIA";
+                    wrapper.Status = "200";
+                }
             }
-            return message;
+            catch (Exception err)
+            {
+                wrapper.Message = "ERROR ACTUALITZANT FAMILIA AL CONTROLLER";
+                wrapper.Status = "500";
+            }
+
+            return wrapper;
         }
 
         [HttpDelete("{id}")]
-        public string Delete(int id)
+        public Wrapper Delete(int id)
         {
-            string message = "ERROR ELIMINANT FAMILIA AL CONTROLLER";
-            if (_repoFamilia.DeleteFamilia(id))
+            Wrapper wrapper = new Wrapper();
+            try
             {
-                message = "EXIT EN ELIMINAR FAMILIA";
+                if (_repoFamilia.DeleteFamilia(id))
+                {
+                    wrapper.Message = "EXIT EN ELIMINAR FAMILIA";
+                    wrapper.Status = "200";
+                }
             }
-            return message;
+            catch (Exception err)
+            {
+                wrapper.Message = "ERROR ELIMINANT FAMILIA AL CONTROLLER";
+                wrapper.Status = "500";
+            }
+
+            return wrapper;
         }
     }
 }
