@@ -93,7 +93,7 @@ namespace BackendProyectoTienda.DAO
             {
                 try
                 {
-                    context.Articulos.Remove(context.Articulos.Where(it => it.Id == id).FirstOrDefault();
+                    context.Articulos.Remove(context.Articulos.Where(it => it.Id == id).FirstOrDefault());
                 }
                 catch (Exception ex)
                 {

@@ -23,9 +23,12 @@ namespace BackendProyectoTienda
                 //DAO
                 builder.Services.AddScoped<IDaoEmpresas, DaoEmpresa>();
                 builder.Services.AddScoped<IDaoArticulos,DaoArticulo>();
+                builder.Services.AddScoped<IDaoFamilia,DaoFamilia>();
 
                 //Services
                 builder.Services.AddScoped<RepositoryEmpresa, ServiceEmpresa>();
+                builder.Services.AddScoped<RepositoryArticulo, ServiceArticulo>();
+                builder.Services.AddScoped<RepositoryFamilia, ServiceFamilia>();
 
             var app = builder.Build();
 
