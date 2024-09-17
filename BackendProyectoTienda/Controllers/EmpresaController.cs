@@ -22,5 +22,25 @@ namespace BackendProyectoTienda.Controllers
         {
             return _repoEmpresa.GetEmpresaById(id);
         }
+
+        [HttpGet]
+        public Wrapper GetEmpreses()
+        {
+            Wrapper wrapper = new Wrapper();
+            try
+            {
+                wrapper.Data.Add("Empreses", _repoEmpresa.GetEmpreses());
+                wrapper.Status = "200";
+                wrapper.Message = "Empreses recuperades correctament";
+            }
+            catch (Exception ex)
+            {
+                wrapper.Status = "500";
+                wrapper.Message = "Error recuperant empreses";
+            }
+
+            return wrapper;
+
+        }
     }
 }
